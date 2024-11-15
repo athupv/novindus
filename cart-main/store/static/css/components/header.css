@@ -1,0 +1,14 @@
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header nav > a{
+    margin: 0 15px;
+    color: red;
+    text-decoration: none;
+    font-weight: 600;
+}
+

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block link %}
+<link rel="stylesheet" href="{% static 'css/cart/cart.css' %}" />
+{% endblock %}
+
+
+{% block content %}
+{% include 'components/header.html' %}
+<section>
+   
+    <div class="cart-container">
+        <h1>Your Shopping Cart</h1>
+
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                 
+                    <th>Action</th>
+                </tr>
+            </thead>
+            {% for item in items %}
+         
+            <tbody id="cart-items">
+                <!-- Example cart item -->
+                <tr class="cart-item">
+                    <td>
+                        <img src="{{ item.product.image.url }}" alt="Product"  class="product-img">
+                        <h3 class="product-name">{{ item.product.title }}</h3>
+                    </td>
+                    <td class="price">${{ item.product.price }}</td>
+                    <td>
+                        <a href="{% url 'cart:cart_decrement' item.id %}"><button class="decrement">-</button></a>
+                        <input type="number" class="quantity" value="{{ item.quantity }}" min="1" readonly>
+                        <a href="{% url 'cart:cart_increment' item.id %}"><button class="increment">+</button></a>
+                    </td>
+                
+                    <td><a href="{% url 'cart:remove' item.id %}"><button class="remove-item" >Remove</button></a></td>
+                </tr>
+            </tbody>
+           
+            {% endfor %}
+        </table>
+
+        <div class="cart-summary">
+            <p><strong>Total: </strong><span id="cart-total">${{ grand_total }}</span></p>
+            <button class="checkout-btn">Proceed to Checkout</button>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
